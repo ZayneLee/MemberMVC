@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Vector;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -38,6 +39,35 @@ public class MemberDAO {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public Vector<MemberBean> listMember() {
+		
+		Vector<MemberBean> v = new Vector<>();
+		try {
+			getCon();
+			String sql = "select * from member";
+			
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				MemberBean bean = new MemberBean();
+				bean.setId(rs.getString(1));
+				bean.setPass1(rs.getString(2));
+				bean.setEmail(rs.getString(3));
+				bean.setTel(rs.getString(4));
+				bean.setHobby(rs.getString(5));
+				bean.setJob(rs.getString(6));
+				bean.setAge(rs.getString(7));
+				bean.setInfo(rs.getString(8));
+				v.add(bean);
+			}
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return v;
 	}
 	
 	public void getCon() throws SQLException {

@@ -50,7 +50,7 @@ public class MemberController extends HttpServlet {
 		MemberDAO dao = new MemberDAO();
 		dao.insertMember(bean);
 		
-		RequestDispatcher dis = request.getRequestDispatcher("MemberList.jsp");
+		RequestDispatcher dis = request.getRequestDispatcher("/MemberlistCon.do");
 		dis.forward(request, response);
 		
 		
